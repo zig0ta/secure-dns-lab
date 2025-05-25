@@ -1,0 +1,38 @@
+version:  "3.9"
+services:
+  bind:
+    image: internetsystemconsortium/bind9:9.16
+    container_name: bind
+    volumes:
+      - ./bind:/etc/bind
+    ports:
+      - "5300:53/udp"
+      - "5300:53/tcp"
+    networks:
+      dnsnet:
+        ipv4_address: 172.20.0.2
+  unbound:
+    image: mvance/unbound
+    container_name: unbound
+    ports:
+      - "5400:53/tcp"
+      - "5400:53/udp"
+    networks:
+      dnsnet:
+        ipv4_address: 172.20.0.3
+  dns-client:
+    image: alpine
+    container_name: dns-client
+    tty: true
+    stdin_open: true
+    networks:
+      dnsnet:
+        ipv4_address: 172.20.0.10
+  networks:
+    dnsnet:
+      driver: bridge 
+      ipam:
+        config:
+          - subnet: 172.20.0.0/24
+
+
