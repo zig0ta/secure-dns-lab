@@ -1,0 +1,12 @@
+$TTL	86400
+@	IN	SOA
+ns1.dummy.org.	admin.dummy.org. (
+			2025052501 ;
+Serial			3600	   ;
+
+Refresh			130000	   ;
+
+Retry			46500	   ;	
+
+Expire			12096      ;
+)
